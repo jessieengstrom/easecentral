@@ -1,0 +1,65 @@
+Part Two Database Project:
+
+Goal is to keep track of people who have multiple addresses and multiple phone numbers
+
+
+Please create a relational database schema and show examples of the following queries:
+
+
+- Display people and their phone numbers
+
+- Display people and their addresses
+
+- Display people and their addresses only if they are in the state of California
+
+- Show how many people have addresses in each state
+
+- Show the % of people that have multiple addresses
+
+**** Database schema ****
+
+people
+    - id(primary key)
+    - firstName
+    - lastName
+
+phoneNumbers
+    - id(primary key)
+    - number
+    - type
+
+addresses
+    - id(primary key)
+    - streetnameNumber
+    - unitNumber (if applicable)
+    - city
+    - state
+    - zipcode
+
+peopleAddresses
+    - id(primary key)
+    - personId(foreign key)
+    - addressId(foreign key)
+
+peoplePhoneNumbers
+    - id(primary key)
+    - personId(foreign key) 
+    - phoneNumberId(foreign key)
+
+**** SQL queries ****
+
+1. Display people and their phone numbers
+
+    SELECT people.firstName, people.lastName, phoneNumbers.number from people join peoplePhoneNumbers on(people.id = peoplePhoneNumbers.personId) join phoneNumbers on (peoplePhoneNumbers.phoneNumberId = phoneNumbers.id);
+
+2. Display people and their addresses
+
+    SELECT people.firstName, people.lastName, addresses.streetnameNumber from people join peopleAddresses on(people.id = peopleAddresses.personId) join addresses on (peopleAdresses.addressrId = addresses.id);
+
+3. Display people and their addresses only if they are in the state of California
+    
+    SELECT people.firstName, people.lastName, addresses.streetnameNumber from people join peopleAddresses on(people.id = peopleAddresses.personId) join addresses on (peopleAdresses.addressrId = addresses.id) where addresses.state = 'CA';
+
+4. Show how many people have addresses in each state
+
+5. Show the % of people that have multiple addresses 
