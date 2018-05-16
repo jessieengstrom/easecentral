@@ -20,46 +20,48 @@ Please create a relational database schema and show examples of the following qu
 
 people
     - id(primary key)
-    - firstName
-    - lastName
+    - fname
+    - lname
 
-phoneNumbers
+phonenumbers
     - id(primary key)
     - number
     - type
 
 addresses
     - id(primary key)
-    - streetnameNumber
-    - unitNumber (if applicable)
+    - streetnamenumber
+    - unitnumber (if applicable)
     - city
     - state
     - zipcode
 
-peopleAddresses
+peopleaddresses
     - id(primary key)
-    - personId(foreign key)
-    - addressId(foreign key)
+    - personid(foreign key)
+    - addressid(foreign key)
 
-peoplePhoneNumbers
+peoplenumbers
     - id(primary key)
-    - personId(foreign key) 
-    - phoneNumberId(foreign key)
+    - personid(foreign key) 
+    - phonenumberid(foreign key)
 
 **** SQL queries ****
 
 1. Display people and their phone numbers
 
-    SELECT people.firstName, people.lastName, phoneNumbers.number from people join peoplePhoneNumbers on(people.id = peoplePhoneNumbers.personId) join phoneNumbers on (peoplePhoneNumbers.phoneNumberId = phoneNumbers.id);
+    SELECT people.fname, people.lname, phonenumbers.number FROM people JOIN peoplenumbers ON(people.id = peoplenumbers.personid) JOIN phonenumbers ON(peoplenumbers.phonenumberid = phonenumbers.id);
 
 2. Display people and their addresses
 
-    SELECT people.firstName, people.lastName, addresses.streetnameNumber from people join peopleAddresses on(people.id = peopleAddresses.personId) join addresses on (peopleAdresses.addressrId = addresses.id);
+    SELECT people.fname, people.lname, addresses.streetnamenumber, addresses.unitnumber, addresses.city, addresses.state, addresses.zipcode FROM people JOIN peopleaddresses ON(people.id = peopleaddresses.personid) JOIN addresses ON(peopleadresses.addressid = addresses.id);
 
 3. Display people and their addresses only if they are in the state of California
     
-    SELECT people.firstName, people.lastName, addresses.streetnameNumber from people join peopleAddresses on(people.id = peopleAddresses.personId) join addresses on (peopleAdresses.addressrId = addresses.id) where addresses.state = 'CA';
+    SELECT people.firstName, people.lastName, addresses.streetnamenumber, addresses.unitnumber, addresses.city, addresses.state, addresses.zipcode FROM people JOIN peopleaddresses ON(people.id = peopleaddresses.personid) JOIN addresses ON(peopleadresses.addressid = addresses.id) WHERE addresses.state = 'CA';
 
 4. Show how many people have addresses in each state
+
+    SELECT addresses.state, count(addresses.state) FROM people JOIN peopleaddresses ON(people.id = peopleaddresses.personid) JOIN addresses ON(peopleaddresses.addressid = addresses.id) GROUP BY addresses.state;
 
 5. Show the % of people that have multiple addresses 

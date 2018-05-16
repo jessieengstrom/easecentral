@@ -8,6 +8,7 @@ namespace Anagram_Test
     {
         static int check_anagram(String a)
         {
+            // give each character in the alphabet a weight
             var alphabet = new Dictionary<char, int>
             {
                 ['a'] = 1,
@@ -38,6 +39,7 @@ namespace Anagram_Test
                 ['z'] = 26
             };
 
+            // return the total weight of a word
             var counts = 0;
             foreach (var c in a) {
                 counts += alphabet[c];
@@ -48,12 +50,17 @@ namespace Anagram_Test
 
         static void Main()
         {
+            // read in the words.txt file as an array
             string[] words = System.IO.File.ReadAllLines(@"/Users/jessieengstrom/myApp/words.txt");
-            Dictionary<int, List<string>> WordsValues = new Dictionary<int, List<string>>();
-            var listOfStrings = new List<string>();
 
+            // using a dictionary to hold the word weights and which words have that weight
+            Dictionary<int, List<string>> WordsValues = new Dictionary<int, List<string>>();
+
+            // loop through each word and calculate weight then add it to WordValues
             foreach (var word in words) {
                 var count = check_anagram(word);
+
+                // if that weight already exists add that word to the list
                 if (WordsValues.ContainsKey(count)) 
                 {
                     WordsValues[count].Add(word);
@@ -63,6 +70,9 @@ namespace Anagram_Test
                     WordsValues[count] = new List<string>() { word };
                 }
             }
+
+            // loop through all the weights and print the words that have the same weight
+            // if a word has the same weight it is an anagram
             foreach (int item in WordsValues.Keys){
                 if (WordsValues[item].Count > 1)
                 {
