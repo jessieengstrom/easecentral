@@ -50,18 +50,47 @@ peoplenumbers
 
 1. Display people and their phone numbers
 
-    SELECT people.fname, people.lname, phonenumbers.number FROM people JOIN peoplenumbers ON(people.id = peoplenumbers.personid) JOIN phonenumbers ON(peoplenumbers.phonenumberid = phonenumbers.id);
+    SELECT 
+        people.fname, people.lname, phonenumbers.number 
+    FROM people 
+         JOIN peoplenumbers ON(people.id = peoplenumbers.personid) 
+         JOIN phonenumbers ON(peoplenumbers.phonenumberid = phonenumbers.id);
 
 2. Display people and their addresses
 
-    SELECT people.fname, people.lname, addresses.streetnamenumber, addresses.unitnumber, addresses.city, addresses.state, addresses.zipcode FROM people JOIN peopleaddresses ON(people.id = peopleaddresses.personid) JOIN addresses ON(peopleadresses.addressid = addresses.id);
+    SELECT 
+        people.fname, people.lname, addresses.streetnamenumber, addresses.unitnumber, addresses.city, addresses.state, addresses.zipcode 
+    FROM people 
+        JOIN peopleaddresses ON(people.id = peopleaddresses.personid) 
+        JOIN addresses ON(peopleadresses.addressid = addresses.id);
 
 3. Display people and their addresses only if they are in the state of California
     
-    SELECT people.firstName, people.lastName, addresses.streetnamenumber, addresses.unitnumber, addresses.city, addresses.state, addresses.zipcode FROM people JOIN peopleaddresses ON(people.id = peopleaddresses.personid) JOIN addresses ON(peopleadresses.addressid = addresses.id) WHERE addresses.state = 'CA';
+    SELECT 
+        people.firstName, people.lastName, addresses.streetnamenumber, addresses.unitnumber, addresses.city, addresses.state, addresses.zipcode 
+    FROM people 
+         JOIN peopleaddresses ON(people.id = peopleaddresses.personid) 
+         JOIN addresses ON(peopleadresses.addressid = addresses.id) 
+    WHERE addresses.state = 'CA';
 
 4. Show how many people have addresses in each state
 
-    SELECT addresses.state, count(addresses.state) FROM people JOIN peopleaddresses ON(people.id = peopleaddresses.personid) JOIN addresses ON(peopleaddresses.addressid = addresses.id) GROUP BY addresses.state;
+    SELECT 
+        addresses.state, count(addresses.state) 
+    FROM people 
+         JOIN peopleaddresses ON(people.id = peopleaddresses.personid) 
+         JOIN addresses ON(peopleaddresses.addressid = addresses.id) 
+    GROUP BY addresses.state;
 
 5. Show the % of people that have multiple addresses 
+    
+    I couldn't find a way to do this in a single query. So I did it in a nested query
+
+    SELECT 
+        avg(indMultiAddr) * 100 AS pctMultiAddr
+    FROM (select personid,
+          case when count(personid) > 1 then 1 else 0 end indMultiAddr
+          from peopleaddresses
+          GROUP BY 1) AS a;
+
+
