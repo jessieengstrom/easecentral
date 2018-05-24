@@ -25,7 +25,7 @@ namespace Anagram_Test
         static void Main()
         {
             // read in the words.txt file as an array
-            string[] words = System.IO.File.ReadAllLines(@"/Users/jessieengstrom/myApp/words.txt");
+            string[] words = System.IO.File.ReadAllLines(@"./words.txt");
 
             // using a dictionary to hold the word weights and which words have that weight
             Dictionary<int, List<string>> WordsValues = new Dictionary<int, List<string>>();
