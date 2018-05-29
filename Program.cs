@@ -8,15 +8,11 @@ namespace Anagram_Test
     {
         static int check_anagram(String a)
         {
-            // give each character in the alphabet a weight
-            Dictionary<char, int> alphabet = new Dictionary<char, int> {};
-            for (char c = 'a'; c <= 'z'; c++)
-                alphabet[c] = c - 64;
 
             // return the total weight of a word
             var counts = 0;
             foreach (var c in a) {
-                counts += alphabet[c];
+                counts += Convert.ToInt32(c);
             }
 
             return counts;

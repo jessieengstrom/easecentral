@@ -17,13 +17,12 @@ def count_words(word):
     """Get the count of a word."""
 
     # give each character a weight
-    chars = {x:i for i, x in enumerate(al, 1)}
 
     count = 0
 
     # calculate the weight of a word
     for c in word:
-        count += chars[c]
+        count += ord(c)
 
     return count
 
