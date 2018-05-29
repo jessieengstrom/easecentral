@@ -1,4 +1,4 @@
-from string import ascii_lowercase as al
+import sys
 
 def get_words(file):
     """Open and parse word file."""
@@ -51,5 +51,5 @@ def find_anagrams(file):
     return anagrams
 
 
-print find_anagrams('./words.txt')
+print find_anagrams(sys.argv[1])
 

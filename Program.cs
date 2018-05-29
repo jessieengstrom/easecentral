@@ -18,10 +18,10 @@ namespace Anagram_Test
             return counts;
         }
 
-        static void Main()
+        static void Main(string[] args)
         {
             // read in the words.txt file as an array
-            string[] words = System.IO.File.ReadAllLines(@"./words.txt");
+            string[] words = System.IO.File.ReadAllLines(args[0]);
 
             // using a dictionary to hold the word weights and which words have that weight
             Dictionary<int, List<string>> WordsValues = new Dictionary<int, List<string>>();
