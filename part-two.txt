@@ -18,33 +18,42 @@ Please create a relational database schema and show examples of the following qu
 
 **** Database schema ****
 
-people
-    - id(primary key)
-    - fname
-    - lname
+CREATE TABLE people(
+    id SERIAL PRIMARY KEY,
+    fname VARCHAR(20) NOT NULL,
+    lname VARCHAR(20) NOT NULL
+)
 
-phonenumbers
-    - id(primary key)
-    - number
-    - type
+CREATE TABLE phonenumbers(
+    id SERIAL PRIMARY KEY,
+    number INTEGER NOT NULL,
+    type VARCHAR(50)
+)
 
-addresses
-    - id(primary key)
-    - streetnamenumber
-    - unitnumber (if applicable)
-    - city
-    - state
-    - zipcode
+CREATE TABLE addresses(
+    id SERIAL PRIMARY KEY,
+    streetnamenumber VARCHAR(50) NOT NULL,
+    unitnumber INTEGER,
+    city VARCHAR(50) NOT NULL,
+    state VARCHAR(20) NOT NULL,
+    zipcode INTEGER NOT NULL
+)
 
-peopleaddresses
-    - id(primary key)
-    - personid(foreign key)
-    - addressid(foreign key)
+CREATE TABLE peopleaddresses(
+    id SERIAL PRIMARY KEY,
+    personid INTEGER
+        REFERENCES people,
+    addressid INTEGER
+        REFERENCES addresses,
+)
 
-peoplenumbers
-    - id(primary key)
-    - personid(foreign key) 
-    - phonenumberid(foreign key)
+CREATE TABLE peoplenumbers(
+    id SERIAL PRIMARY KEY,
+    personid INTEGER
+        REFERENCES people,
+    phonenumberid INTEGER
+        REFERENCES phonenumbers
+)
 
 **** SQL queries ****
 
