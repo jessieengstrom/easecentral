@@ -13,43 +13,23 @@ def get_words(file):
     return words
 
 
-def count_words(word):
-    """Get the count of a word."""
-
-    # give each character a weight
-
-    count = 0
-
-    # calculate the weight of a word
-    for c in word:
-        count += ord(c)
-
-    return count
-
-
-
 def find_anagrams(file):
     """Find the anagrams in a list of words."""
 
     words = get_words(file)
-    words_values = {}
-    anagrams = []
+    sorted_words = {}
 
-    # call the count words function for each word and add them to the word values dictionary
     for word in words:
-        count = count_words(word)
-        if words_values.get(count):
-            words_values[count].append(word)
+        sort = str(sorted(word))
+        if sorted_words.get(sort):
+            sorted_words[sort].append(word)
         else:
-            words_values[count] = [word]
-    # look at each count and if it has more that one word associated with it
-    # then return the anagrams in a list of tuples
-    for count in words_values:
-        if len(words_values[count]) > 1:
-            anagrams.append(tuple(words_values[count]))
+            sorted_words[sort] = [word]
 
-    return anagrams
+    for sorted_word, anagrams in sorted_words.iteritems():
+        if len(anagrams) > 1:
+            print tuple(anagrams)
 
 
-print find_anagrams(sys.argv[1])
+find_anagrams(sys.argv[1])
 
